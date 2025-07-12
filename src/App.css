@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgb(218, 128, 12);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0);
+  margin-top: 10px;
+}
+
+label {
+  color: #282c34;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #282c34;
+  padding: 8px;
+  margin: 10px 30px;
+  color: wheat;
+  border-radius: 4px;
+}

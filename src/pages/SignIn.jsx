@@ -1,25 +1,26 @@
-import React from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
-import { app } from "../firebase.js";
+import React, { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../firebase";
 
-const Signup = () => {
+const auth = getAuth(app);
+
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = getAuth(app);
 
-  const createUser = () => {
-    createUserWithEmailAndPassword(auth, email, password).then((value) => {
-      alert("Successfully created");
-      setEmail("");
-      setPassword("");
-    });
+  const signInUser = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((value) => {
+        alert("Successfully created");
+        setEmail("");
+        setPassword("");
+      })
+      .catch((error) => console.log(error.message));
   };
-
   return (
     <>
       <div className="form">
-        <h1>SignUp</h1>
+        <h1>SignIn</h1>
         <label>Email:</label>
         <input
           type="text"
@@ -34,10 +35,10 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <button onClick={createUser}>SignUp</button>
+        <button onClick={signInUser}>SignIn</button>
       </div>
     </>
   );
 };
 
-export default Signup;
+export default SignIn;
