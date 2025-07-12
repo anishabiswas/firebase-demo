@@ -1,12 +1,21 @@
 import React from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  GithubAuthProvider,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { useState } from "react";
 import { app } from "../firebase.js";
+
+const auth = getAuth(app);
+const githubProvider = new GithubAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = getAuth(app);
 
   const createUser = () => {
     createUserWithEmailAndPassword(auth, email, password).then((value) => {
@@ -14,6 +23,14 @@ const Signup = () => {
       setEmail("");
       setPassword("");
     });
+  };
+
+  const SignInWithGitHub = () => {
+    signInWithPopup(auth, githubProvider);
+  };
+
+  const SignInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider);
   };
 
   return (
@@ -35,6 +52,8 @@ const Signup = () => {
           value={password}
         />
         <button onClick={createUser}>SignUp</button>
+        <button onClick={SignInWithGitHub}>Sign In with Github</button>
+        <button onClick={SignInWithGoogle}>Sign In with Gmail</button>
       </div>
     </>
   );
