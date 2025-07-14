@@ -17,9 +17,26 @@ const FirestoreDB = () => {
     }
   };
 
+  const createSubCollection = async () => {
+    try {
+      const docRef = await addDoc(
+        collection(db, "flowers/CPBq4v01GXDX5fpQXdxf/species"),
+        {
+          name: "gold",
+          use: "for beautiness",
+          price: 100,
+        }
+      );
+      console.log("Document written with ID: ", docRef.id, docRef);
+    } catch (e) {
+      console.error("Error adding document:", e.message);
+    }
+  };
+
   return (
     <div>
       <button onClick={writeData}>Flowers Info</button>
+      <button onClick={createSubCollection}>Flowers subInfo</button>
     </div>
   );
 };
