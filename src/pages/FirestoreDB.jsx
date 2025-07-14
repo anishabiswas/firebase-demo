@@ -5,6 +5,10 @@ import {
   addDoc,
   doc,
   getDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
 } from "firebase/firestore";
 
 const db = getFirestore(app);
@@ -49,11 +53,33 @@ const FirestoreDB = () => {
     }
   };
 
+  const getDocumentsByQuery = async () => {
+    try {
+      const collectionRef = collection(db, "user");
+      const q = query(collectionRef, where("isFemaile", "==", false));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+      });
+    } catch (e) {
+      console.error("Error getting document:", e.message);
+    }
+  };
+
+  const updateDocument = async () => {
+    const ref = doc(db, "flowers/CPBq4v01GXDX5fpQXdxf");
+    await updateDoc(ref, {
+      usedBy: "Asthetic people",
+    });
+  };
+
   return (
     <div>
       <button onClick={writeData}>Flowers Info</button>
       <button onClick={createSubCollection}>Flowers subInfo</button>
       <button onClick={getDocument}>Get Document</button>
+      <button onClick={getDocumentsByQuery}>Get Document by Query</button>
+      <button onClick={updateDocument}>Update Document</button>
     </div>
   );
 };
