@@ -5,6 +5,7 @@ import Signup from "./pages/Signup.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
+import FirestoreDB from "./pages/FirestoreDB.jsx";
 
 const auth = getAuth(app);
 const db = getDatabase(app);
@@ -40,6 +41,7 @@ function App() {
           <button onClick={putData}> save Data</button>
           <Signup />
           <SignIn />
+          <FirestoreDB />
         </header>
       </div>
     );
