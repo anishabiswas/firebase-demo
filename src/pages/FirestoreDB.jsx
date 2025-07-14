@@ -1,5 +1,11 @@
 import { app } from "../firebase";
-import { collection, getFirestore, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getFirestore,
+  addDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
 const db = getFirestore(app);
 
@@ -33,10 +39,21 @@ const FirestoreDB = () => {
     }
   };
 
+  const getDocument = async () => {
+    try {
+      const ref = doc(db, "user/eyMfunR8ohNrMYaFwhNU");
+      const snap = await getDoc(ref);
+      console.log(snap.data());
+    } catch (e) {
+      console.error("Error getting document:", e.message);
+    }
+  };
+
   return (
     <div>
       <button onClick={writeData}>Flowers Info</button>
       <button onClick={createSubCollection}>Flowers subInfo</button>
+      <button onClick={getDocument}>Get Document</button>
     </div>
   );
 };
